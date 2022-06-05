@@ -2,6 +2,8 @@ import { diffDates, diffToHtml } from "./datecalc.js";
 import { formatError } from "./utils.js";
 import { addListenerShowEl } from "./partitionSwitching.js";
 import { playSound } from "./howlerEl.js";
+import "/src/sounds/zvonok.mp3";
+import "/css/style.scss";
 
 const dateCalcForm = document.getElementById("datecalc");
 const dateCalcResult = document.getElementById("datecalc__result");

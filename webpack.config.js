@@ -1,10 +1,8 @@
 const { resolve } = require("path");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const AnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 module.exports = {
-  entry: "./src/script/index.js",
+  entry: resolve(__dirname, 'src', 'index.js'),
   mode: "development",
   output: {
     filename: "main.[contenthash].js",
@@ -13,28 +11,49 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpeg|gif|mp3)$/i,
-        loader: "file-loader",
-        options: {
-          name: "[path][name].[ext]",
-        },
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'img-optimize-loader?name=../build/images/[contenthash].[ext]',
+            options: {
+              compress: {
+                mode: 'high',
+                webp: true,
+                gifsicle: true,
+                disableOnDevelopment: false
+              }
+            }
+          }
+      ]
       },
       {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        test: /\.mp3$/i,
+        use: [
+            {
+              loader: 'file-loader?name=../build/audio/[contenthash].[ext]'
+            }
+        ]
       },
+      {
+        test: /\.(webm|mp4)$/i,
+        use: [
+            {
+                loader: 'file-loader?name=../build/video/[contenthash].[ext]'
+            }
+        ]
+    },
       {
         test: /\.s[ac]ss$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+        use: [
+          "style-loader",
+          "css-loader",
+          "sass-loader"
+        ],
       },
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: resolve(__dirname, "index.html") }),
-    new MiniCssExtractPlugin({
-      filename: "[name].[contenthash].css",
-    }),
-    new AnalyzerPlugin(),
+    new HtmlWebpackPlugin({ template: resolve(__dirname, 'src', "index.html") }),
   ],
   devServer: {
     port: 9090,

@@ -6,13 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf build",
-    "start": "npm run clean && npx webpack --mode=development",
-    "serve": "npm run clean && npx webpack server --mode=development"
+    "dev": "npm run clean && webpack --mode=development",
+    "build": "npm run clean && webpack --mode=production",
+    "serve": "webpack serve --mode=development"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/VitaliyJC/WebPack.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -23,13 +25,12 @@
     "css-loader": "^6.7.1",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
-    "mini-css-extract-plugin": "^2.6.0",
-    "sass": "^1.52.2",
+    "img-optimize-loader": "^1.0.7",
+    "sass": "^1.52.3",
     "sass-loader": "^13.0.0",
     "style-loader": "^3.3.1",
     "webpack": "^5.73.0",
-    "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.9.1"
+    "webpack-dev-server": "^4.9.2"
   }
 }
